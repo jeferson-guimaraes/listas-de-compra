@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["reactNative"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./app.db"
+}
+
+model List {
+  id    		Int     @id @default(autoincrement())
+  name  		String
+	total			Float @default(0)
+	products 	Product[]
+}
+
+model Product {
+	id					Int			@id @default(autoincrement())
+	name				String
+	price				Float
+	amount			Int
+	totalPrice	Float
+	listId      Int
+  list        List    @relation(fields: [listId], references: [id], onDelete: Cascade)
+}
